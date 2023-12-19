@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct Spotify_CloneApp: App {
+    @State var launchScreenActive: Bool = true
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if launchScreenActive {
+                LaunchScreen()
+                    .onAppear {
+                        DispatchQueue.global().asyncAfter(deadline: .now() + 1, execute: {
+                            launchScreenActive = false
+                        })
+                    }
+            } else {
+                HomeView()
+            }
         }
     }
 }
